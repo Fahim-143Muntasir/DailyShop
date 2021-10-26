@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DailyShop.Models;
 
 namespace DailyShop.Data
 {
@@ -12,5 +13,6 @@ namespace DailyShop.Data
             : base(options)
         {
         }
+        public DbSet<ProductTypes> ProductTypes { get; set; }
     }
 }
