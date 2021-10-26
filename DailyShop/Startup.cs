@@ -64,6 +64,7 @@ namespace DailyShop
                 endpoints.MapControllerRoute(
                   name: "areas",
                   pattern: "{area:Customer}/{controller=Home}/{action=Index}/{id?}"
+
                 );
             });
         }
