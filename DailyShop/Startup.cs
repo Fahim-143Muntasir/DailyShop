@@ -66,6 +66,7 @@ namespace DailyShop
                   pattern: "{area:Customer}/{controller=Home}/{action=Index}/{id?}"
                 );
             });
+
         }
     }
 }
