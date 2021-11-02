@@ -40,5 +40,33 @@ namespace DailyShop.Areas.Admin.Controllers
             }
             return View(producTypes);
         }
+        //Edit Action for httpget 
+        public ActionResult Edit(int? id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var productType = _db.ProductTypes.Find();
+            if(productType==null)
+            {
+                return NotFound();
+            }
+            return View(productType);
+        }
+        
+        //Edit Action for httppost
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ProductTypes producTypes)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Add(producTypes);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(producTypes);
+        }
     }
 }
