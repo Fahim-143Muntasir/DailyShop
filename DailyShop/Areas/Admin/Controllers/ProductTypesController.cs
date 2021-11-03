@@ -30,15 +30,15 @@ namespace DailyShop.Areas.Admin.Controllers
         //Create Action for httppost
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductTypes producTypes)
+        public async Task<IActionResult> Create(ProductTypes productType)
         {
             if (ModelState.IsValid)
             {
-                _db.ProductTypes.Add(producTypes);
+                _db.ProductTypes.Add(productType);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(producTypes);
+            return View(productType);
         }
         //Edit Action for httpget 
         public ActionResult Edit(int? id)
@@ -127,12 +127,12 @@ namespace DailyShop.Areas.Admin.Controllers
             }
             if(ModelState.IsValid)
             {
-                _db.Remove(producTypes);
+                _db.Remove(productType);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
 
             }
-                return View(producTypes);
+                return View(productType);
             
         }
     }
