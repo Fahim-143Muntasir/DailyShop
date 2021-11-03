@@ -34,7 +34,7 @@ namespace DailyShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Add(producTypes);
+                _db.ProductTypes.Add(producTypes);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -47,7 +47,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var productType = _db.ProductTypes.Find();
+            var productType = _db.ProductTypes.Find(id);
             if(productType==null)
             {
                 return NotFound();
@@ -62,7 +62,7 @@ namespace DailyShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Add(producTypes);
+                _db.Update(producTypes);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
