@@ -92,5 +92,48 @@ namespace DailyShop.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             
         }
+        //Delete Action for httpget 
+        public ActionResult Delete(int? id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var productType = _db.ProductTypes.Find(id);
+            if(productType==null)
+            {
+                return NotFound();
+            }
+            return View(productType);
+        }
+        
+        //Delete Action for httppost
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult>Delete(int? id, ProductTypes producTypes)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            if(id!=producTypes.Id)
+            {
+                return NotFound();
+            }
+            var productType = _db.ProductTypes.Find(id);
+            if(producTypes==null)
+            {
+                return NotFound();
+            }
+            if(ModelState.IsValid)
+            {
+                _db.Remove(producTypes);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+                return View(producTypes);
+            
+        }
     }
 }

@@ -4,7 +4,7 @@
 }
 <br />
 
-<h2 class="text-info">Create Product Type</h2>
+<h2 class="text-success">Create Product Type</h2>
 <form asp-action="Create" method="post" >
     <div class="p-4 rounded border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -18,8 +18,8 @@
             <span asp-validation-for="ProductType" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Save" />
-            <a asp-action="Index" asp-controller="ProductTypes" class="btn btn-success">Back to List</a>
+            <input type="submit" class="btn btn-success" value="Add" />
+            <a asp-action="Index" asp-controller="ProductTypes" class="btn btn-primary">Back to List</a>
         </div>
     </div>
 </form>
