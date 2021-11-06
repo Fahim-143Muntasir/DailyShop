@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 
 namespace DailyShop.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
-    public class ProductTypesController : Controller
+    public class TagListsController : Controller
     {
         private ApplicationDbContext _db;
-        public ProductTypesController(ApplicationDbContext db)
+        public TagListsController(ApplicationDbContext db)
         {
             _db = db;
         }
         public IActionResult Index()
         {
             //var data = _db.ProductTypes.ToList();
-            return View(_db.ProductTypes.ToList());
+            return View(_db.TagLists.ToList());
         }
         //Create Action for httpget 
         public ActionResult Create()
@@ -30,15 +31,15 @@ namespace DailyShop.Areas.Admin.Controllers
         //Create Action for httppost
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductTypes productTypes)
+        public async Task<IActionResult> Create(TagLists tagLists)
         {
             if (ModelState.IsValid)
             {
-                _db.ProductTypes.Add(productTypes);
+                _db.TagLists.Add(tagLists);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(productTypes);
+            return View(tagLists);
         }
         //Edit Action for httpget 
         public ActionResult Edit(int? id)
@@ -47,26 +48,26 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var productType = _db.ProductTypes.Find(id);
-            if (productType == null)
+            var tagList = _db.TagLists.Find(id);
+            if (tagList == null)
             {
                 return NotFound();
             }
-            return View(productType);
+            return View(tagList);
         }
 
         //Edit Action for httppost
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ProductTypes productTypes)
+        public async Task<IActionResult> Edit(TagLists tagLists)
         {
             if (ModelState.IsValid)
             {
-                _db.Update(productTypes);
+                _db.Update(tagLists);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(productTypes);
+            return View(tagLists);
         }
         //Details Action for httpget 
         public ActionResult Details(int? id)
@@ -75,18 +76,18 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var productType = _db.ProductTypes.Find(id);
-            if (productType == null)
+            var tagList = _db.TagLists.Find(id);
+            if (tagList == null)
             {
                 return NotFound();
             }
-            return View(productType);
+            return View(tagList);
         }
 
         //Details Action for httppost
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Details(ProductTypes productTypes)
+        public IActionResult Details(TagLists tagLists)
         {
 
             return RedirectToAction(nameof(Index));
@@ -99,41 +100,42 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var productType = _db.ProductTypes.Find(id);
-            if (productType == null)
+            var tagList = _db.TagLists.Find(id);
+            if (tagList == null)
             {
                 return NotFound();
             }
-            return View(productType);
+            return View(tagList);
         }
 
         //Delete Action for httppost
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int? id, ProductTypes productTypes)
+        public async Task<IActionResult> Delete(int? id, TagLists tagLists)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            if (id != productTypes.Id)
+            if (id != tagLists.Id)
             {
                 return NotFound();
             }
-            var productType = _db.ProductTypes.Find(id);
-            if (productType == null)
+            var tagList = _db.TagLists.Find(id);
+            if (tagList == null)
             {
                 return NotFound();
             }
             if (ModelState.IsValid)
             {
-                _db.Remove(productType);
+                _db.Remove(tagList);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
 
             }
-            return View(productTypes);
+            return View(tagLists);
 
         }
     }
+
 }
