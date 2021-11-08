@@ -36,6 +36,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.ProductTypes.Add(productTypes);
                 await _db.SaveChangesAsync();
+                TempData["save"] = "Product Type saved successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(productTypes);
@@ -64,6 +65,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.Update(productTypes);
                 await _db.SaveChangesAsync();
+                TempData["update"] = "Product Type updated successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(productTypes);
@@ -129,6 +131,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.Remove(productType);
                 await _db.SaveChangesAsync();
+                TempData["remove"] = "Product Type deleted successfully!";
                 return RedirectToAction(nameof(Index));
 
             }
