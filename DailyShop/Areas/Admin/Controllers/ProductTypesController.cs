@@ -36,7 +36,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.ProductTypes.Add(productTypes);
                 await _db.SaveChangesAsync();
-                TempData["save"] = "Product Type saved successfully!";
+                TempData["save"] = productTypes.ProductType + " added successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(productTypes);
@@ -55,7 +55,6 @@ namespace DailyShop.Areas.Admin.Controllers
             }
             return View(productType);
         }
-
         //Edit Action for httppost
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -65,7 +64,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.Update(productTypes);
                 await _db.SaveChangesAsync();
-                TempData["update"] = "Product Type updated successfully!";
+                TempData["update"] = productTypes.ProductType + " updated successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(productTypes);
@@ -84,7 +83,6 @@ namespace DailyShop.Areas.Admin.Controllers
             }
             return View(productType);
         }
-
         //Details Action for httppost
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -131,7 +129,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.Remove(productType);
                 await _db.SaveChangesAsync();
-                TempData["remove"] = "Product Type deleted successfully!";
+                TempData["remove"] = productTypes.ProductType + " deleted successfully!";
                 return RedirectToAction(nameof(Index));
 
             }
