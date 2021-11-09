@@ -1,4 +1,5 @@
 ﻿using DailyShop.Data;
+using DailyShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,7 +19,25 @@ namespace DailyShop.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View(_db.Products.Include(c=>c.ProductTypes).Include(f=>f.SpecialTag).ToList());
+            return View(_db.Products.Include(c => c.ProductTypes).Include(f => f.SpecialTag).ToList());
+        }
+        //httpget Create method
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        //httppost Create method
+        public async Task<IActionResult> Create(Products products)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Products.Add(products);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(products);
+
         }
     }
 }
