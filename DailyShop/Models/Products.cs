@@ -30,6 +30,6 @@ namespace DailyShop.Models
         public int SpecialTagId { get; set; }
         [ForeignKey("SpecialTagId")]
         public TagLists SpecialTag { get; set; }
-
+        public string Image { get; internal set; }
     }
 }
