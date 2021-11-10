@@ -46,6 +46,10 @@ namespace DailyShop.Areas.Admin.Controllers
                     await image.CopyToAsync(new FileStream(name, FileMode.Create));
                     products.Image = "Images/" + image.FileName;
                 }
+                if(image==null)
+                {
+                    products.Image = "Images/NoImageAvailable.jpg";
+                }
                 _db.Products.Add(products);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
