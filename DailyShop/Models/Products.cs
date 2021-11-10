@@ -14,7 +14,7 @@ namespace DailyShop.Models
         public string Name { get; set; }
         [Required]
         public decimal Price { get; set; }
-        public string Imange { get; set; }
+        public string Image { get; set; }
         [Display(Name = "Product Color")]
         public string ProductColor { get; set; }
         [Required]
@@ -30,6 +30,5 @@ namespace DailyShop.Models
         public int SpecialTagId { get; set; }
         [ForeignKey("SpecialTagId")]
         public TagLists SpecialTag { get; set; }
-        public string Image { get; internal set; }
     }
 }
