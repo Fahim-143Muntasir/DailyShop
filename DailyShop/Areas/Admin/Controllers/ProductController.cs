@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DailyShop.Areas.Admin.Controllers
 {
@@ -30,6 +30,8 @@ namespace DailyShop.Areas.Admin.Controllers
         //httpget Create method
         public IActionResult Create()
         {
+            ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
+            ViewData["TagId"] = new SelectList(_db.TagLists.ToList(), "Id", "TagList");
             return View();
         }
         [HttpPost]
