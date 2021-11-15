@@ -23,10 +23,20 @@ namespace DailyShop.Areas.Admin.Controllers
             _db = db;
             _he = he;
         }
+        //httpget Index method
         public IActionResult Index()
         {
             return View(_db.Products.Include(c => c.ProductTypes).Include(f=>f.SpecialTag).ToList());
         }
+        //httppost Index method
+
+        //[HttpPost]
+        //public IActionResult Index(decimal lowAmount, decimal largeAmount)
+        //{
+        //    var product = _db.Products.Include()
+        //    return View();
+        //}
+
         //httpget Create method
         public IActionResult Create()
         {
@@ -36,25 +46,34 @@ namespace DailyShop.Areas.Admin.Controllers
         }
         [HttpPost]
         //httppost Create method
-        public async Task<IActionResult> Create(Products products, IFormFile image)
+        public async Task<IActionResult> Create(Products product, IFormFile image)
         {
             if (ModelState.IsValid)
             {
+                var searchProduct = _db.Products.FirstOrDefault(c => c.Name == product.Name);
+                if(searchProduct!=null)
+                {
+                    ViewBag.message = "This Product is already exist!";
+                    ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
+                    ViewData["TagId"] = new SelectList(_db.TagLists.ToList(), "Id", "TagList");
+                    return View(product);
+                }
                 if (image != null)
                 {
                     var name = Path.Combine(_he.WebRootPath + "/Images", Path.GetFileName(image.FileName));
                     await image.CopyToAsync(new FileStream(name, FileMode.Create));
-                    products.Image = "Images/" + image.FileName;
+                    product.Image = "Images/" + image.FileName;
                 }
                 if (image == null)
                 {
-                    products.Image = "Images/NoImageAvailable.jpg";
+                    product.Image = "Images/NoImageAvailable.jpg";
                 }
-                _db.Products.Add(products);
+                _db.Products.Add(product);
                 await _db.SaveChangesAsync();
+                TempData["save"] = product.Name + " added successfully 😇";
                 return RedirectToAction(nameof(Index));
             }
-            return View(products);
+            return View(product);
 
         }
         //httpget Edit method
@@ -76,25 +95,35 @@ namespace DailyShop.Areas.Admin.Controllers
         }
         //httppost Edit method
         [HttpPost]
-        public async Task<IActionResult> Edit(Products products, IFormFile image)
+        public async Task<IActionResult> Edit(Products product, IFormFile image)
         {
             if (ModelState.IsValid)
             {
+                var searchProduct = _db.Products.FirstOrDefault(c => c.Name == product.Name);
+                if (searchProduct != null)
+                {
+                    ViewBag.message = "This Product is already exist!";
+                    ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
+                    ViewData["TagId"] = new SelectList(_db.TagLists.ToList(), "Id", "TagList");
+                    return View(product);
+                }
                 if (image != null)
                 {
                     var name = Path.Combine(_he.WebRootPath + "/Images", Path.GetFileName(image.FileName));
                     await image.CopyToAsync(new FileStream(name, FileMode.Create));
-                    products.Image = "Images/" + image.FileName;
+                    product.Image = "Images/" + image.FileName;
                 }
                 if (image == null)
                 {
-                    products.Image = "Images/NoImageAvailable.jpg";
+                    product.Image = "Images/NoImageAvailable.jpg";
                 }
-                _db.Products.Update(products);
+                _db.Products.Update(product);
                 await _db.SaveChangesAsync();
+                TempData["update"] = product.Name + " updated successfully ✨";
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(products);
+            return View(product);
         }
         //httpget for Details method
         public ActionResult Details(int? id)
@@ -141,6 +170,8 @@ namespace DailyShop.Areas.Admin.Controllers
             }
             _db.Products.Remove(product);
             await _db.SaveChangesAsync();
+            TempData["remove"] = product.Name + " deleted successfully 🗑";
+
             return RedirectToAction(nameof(Index));
         }
 
