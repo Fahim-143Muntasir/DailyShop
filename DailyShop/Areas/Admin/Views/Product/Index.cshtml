@@ -46,7 +46,12 @@
                 <td>@item.Name</td>
                 <td>@item.Price</td>
                 <td>@item.ProductColor</td>
-                <td>@item.IsAvailable</td>
+                @{
+                    var v="NO";
+                    if (item.IsAvailable) { v = "YES"; }
+                     <td>@v.ToString()</td>
+                }
+                
                 <td>@item.ProductTypes.ProductType</td>
                 <td>@item.SpecialTag.TagList</td>
                 <td>

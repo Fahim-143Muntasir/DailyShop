@@ -24,11 +24,12 @@ namespace DailyShop.Models
         [Required]
         public int ProductTypeId { get; set; }
         [ForeignKey("ProductTypeId")]
-        public ProductTypes ProductTypes { get; set; }
+        public virtual ProductTypes ProductTypes { get; set; }
         [Display(Name = "Special Tag")]
         [Required]
         public int SpecialTagId { get; set; }
         [ForeignKey("SpecialTagId")]
-        public TagLists SpecialTag { get; set; }
+        public virtual TagLists SpecialTag { get; set; }
+        
     }
 }

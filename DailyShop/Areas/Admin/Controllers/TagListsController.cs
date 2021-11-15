@@ -37,7 +37,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.TagLists.Add(tagLists);
                 await _db.SaveChangesAsync();
-                TempData["save"] = tagLists.TagList+" added successfully!";
+                TempData["save"] = tagLists.TagList+" added successfully 😇";
                 return RedirectToAction(nameof(Index));
             }
             return View(tagLists);
@@ -66,7 +66,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.Update(tagLists);
                 await _db.SaveChangesAsync();
-                TempData["update"] = tagLists.TagList + " updated successfully!";
+                TempData["update"] = tagLists.TagList + " updated successfully ✨";
                 return RedirectToAction(nameof(Index));
             }
             return View(tagLists);
@@ -132,7 +132,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 _db.Remove(tagList);
                 await _db.SaveChangesAsync();
-                TempData["remove"] = tagLists.TagList + " deleted successfully!";
+                TempData["remove"] = tagLists.TagList + " deleted successfully 🗑";
                 return RedirectToAction(nameof(Index));
             }
             return View(tagLists);

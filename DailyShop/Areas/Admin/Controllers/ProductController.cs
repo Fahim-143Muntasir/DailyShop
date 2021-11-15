@@ -18,14 +18,14 @@ namespace DailyShop.Areas.Admin.Controllers
     {
         private ApplicationDbContext _db;
         private IHostingEnvironment _he;
-        public ProductController(ApplicationDbContext db , IHostingEnvironment he)
+        public ProductController(ApplicationDbContext db, IHostingEnvironment he)
         {
             _db = db;
             _he = he;
         }
         public IActionResult Index()
         {
-            return View(_db.Products.Include(c => c.ProductTypes).Include(f => f.SpecialTag).ToList());
+            return View(_db.Products.Include(c => c.ProductTypes).Include(f=>f.SpecialTag).ToList());
         }
         //httpget Create method
         public IActionResult Create()
@@ -36,17 +36,17 @@ namespace DailyShop.Areas.Admin.Controllers
         }
         [HttpPost]
         //httppost Create method
-        public async Task<IActionResult> Create(Products products , IFormFile image)
+        public async Task<IActionResult> Create(Products products, IFormFile image)
         {
             if (ModelState.IsValid)
             {
-                if(image!=null)
+                if (image != null)
                 {
                     var name = Path.Combine(_he.WebRootPath + "/Images", Path.GetFileName(image.FileName));
                     await image.CopyToAsync(new FileStream(name, FileMode.Create));
                     products.Image = "Images/" + image.FileName;
                 }
-                if(image==null)
+                if (image == null)
                 {
                     products.Image = "Images/NoImageAvailable.jpg";
                 }
@@ -56,6 +56,45 @@ namespace DailyShop.Areas.Admin.Controllers
             }
             return View(products);
 
+        }
+        //httpget Edit method
+        public ActionResult Edit(int? id)
+        {
+            ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
+            ViewData["TagId"] = new SelectList(_db.TagLists.ToList(), "Id", "TagList");
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var product = _db.Products.Include(c => c.ProductTypes).Include(c => c.SpecialTag)
+                .FirstOrDefault(c => c.Id == id);
+            if(product==null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+        //httppost Edit method
+        [HttpPost]
+        public async Task<IActionResult> Edit(Products products, IFormFile image)
+        {
+            if (ModelState.IsValid)
+            {
+                if (image != null)
+                {
+                    var name = Path.Combine(_he.WebRootPath + "/Images", Path.GetFileName(image.FileName));
+                    await image.CopyToAsync(new FileStream(name, FileMode.Create));
+                    products.Image = "Images/" + image.FileName;
+                }
+                if (image == null)
+                {
+                    products.Image = "Images/NoImageAvailable.jpg";
+                }
+                _db.Products.Update(products);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(products);
         }
     }
 }
