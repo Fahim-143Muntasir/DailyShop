@@ -125,6 +125,24 @@ namespace DailyShop.Areas.Admin.Controllers
             }
             return View(product);
         }
+        //httppost for Delete method
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirm(int? id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var product = _db.Products.FirstOrDefault(c => c.Id == id);
+            if(product==null)
+            {
+                return NotFound();
+            }
+            _db.Products.Remove(product);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }
