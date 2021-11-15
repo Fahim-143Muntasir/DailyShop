@@ -118,7 +118,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var product = _db.Products.Include(c => c.SpecialTag).Include(c => c.ProductTypes).Where(c => c.Id == id);
+            var product = _db.Products.Include(c => c.SpecialTag).Include(c => c.ProductTypes).Where(c => c.Id == id).FirstOrDefault();
             if(product==null)
             {
                 return NotFound();
