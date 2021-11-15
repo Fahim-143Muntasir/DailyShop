@@ -96,5 +96,35 @@ namespace DailyShop.Areas.Admin.Controllers
             }
             return View(products);
         }
+        //httpget for Details method
+        public ActionResult Details(int? id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var product = _db.Products.Include(c => c.ProductTypes).Include(c => c.SpecialTag)
+                .FirstOrDefault(c => c.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+        //httpget for Delete method
+        public ActionResult Delete(int? id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var product = _db.Products.Include(c => c.SpecialTag).Include(c => c.ProductTypes).Where(c => c.Id == id);
+            if(product==null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
     }
 }
