@@ -105,14 +105,14 @@ namespace DailyShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var searchProduct = _db.Products.FirstOrDefault(c => c.Name == product.Name);
+                /*var searchProduct = _db.Products.FirstOrDefault(c => c.Name == product.Name);
                 if (searchProduct != null)
                 {
                     ViewBag.message = "This Product is already exist!";
                     ViewData["productTypeId"] = new SelectList(_db.ProductTypes.ToList(), "Id", "ProductType");
                     ViewData["TagId"] = new SelectList(_db.TagLists.ToList(), "Id", "TagList");
                     return View(product);
-                }
+                }*/
                 if (image != null)
                 {
                     var name = Path.Combine(_he.WebRootPath + "/Images", Path.GetFileName(image.FileName));
