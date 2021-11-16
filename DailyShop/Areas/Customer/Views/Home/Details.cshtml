@@ -61,7 +61,7 @@
 
                 </div>
                 <div class="col-8">
-                    <input type="submit" class="btn btn-info" value="Add to Cart" />
+                    <input type="submit" class="btn btn-info form-control" value="Add to Cart" />
                 </div>
                 <span asp-validation-for="IsAvailable" class="text-danger"></span>
             </div>
@@ -73,6 +73,8 @@
         <div class="col-1"></div>
         <div class="col-3">
             <img src="~/@Model.Image" width="100%" style="border-radius: 5px;border: 1px solid #efefef" />
+            <br />
+            <br />
             @if (Model.IsAvailable)
             {
                 <img src="~/Images/Instok.jpg" width="240px" height="60px" />
