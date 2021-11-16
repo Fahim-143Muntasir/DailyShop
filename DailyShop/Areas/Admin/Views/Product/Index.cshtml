@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<DailyShop.Models.Products>
+
 @{
     ViewData["Title"] = "Index";
 }
+
 <br />
 <br />
 <div class="row">
@@ -16,10 +18,10 @@
 <form method="post">
     <div class="row">
         <div class="col-3">
-            <input type="number" class="form-control" name="lowAmount"/>
+            <input type="number" class="form-control" name="lowAmount" placeholder="Enter minimum price" />
         </div>
         <div class="col-3">
-            <input type="number" class="form-control" name="highAmount"/>
+            <input type="number" class="form-control" name="highAmount" placeholder="Enter maximum price" />
         </div>
         <div class="col-3">
             <input type="submit" class="btn btn-success" value="Search" />
@@ -29,56 +31,63 @@
 </form>
 <br />
 <div>
-    <table class="table table-striped border">
-        <tr class="table-info">
-            <th>
-                @Html.DisplayNameFor(c => c.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(c => c.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(c => c.ProductColor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(c => c.IsAvailable)
-            </th>
-            <th>
-                @Html.DisplayNameFor(c => c.ProductTypeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(c => c.SpecialTagId)
-            </th>
+    <table id="myTable" class="table table-border  text-center">
+        <thead>
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
 
-            <th></th>
-            <th><p>Action</p></th>
-            <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductColor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsAvailable)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductTypeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SpecialTagId)
+                </th>
+                <th></th>
+                <th>Actions</th>
 
-        </tr>
-        @foreach (var item in Model)
-        {
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
             <tr>
                 <td>@item.Name</td>
                 <td>@item.Price</td>
+
                 <td>@item.ProductColor</td>
                 @{
-                    var v="NO";
-                    if (item.IsAvailable) { v = "YES"; }
-                     <td>@v.ToString()</td>
+                        var v = "NO";
+                        if (item.IsAvailable) { v = "YES"; }
+                    <td>@v.ToString()</td>
                 }
-                
+
                 <td>@item.ProductTypes.ProductType</td>
                 <td>@item.SpecialTag.TagList</td>
+
                 <td>
                     <partial name="_ButtonPartial" model="@item.Id" />
                 </td>
+
             </tr>
-        }
+            }
+        </tbody>
     </table>
 </div>
 @section scripts{
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script type="text/javascript">
+
         $(function () {
             var save = '@TempData["save"]';
             if (save !='') {
