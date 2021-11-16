@@ -29,13 +29,18 @@ namespace DailyShop.Areas.Admin.Controllers
             return View(_db.Products.Include(c => c.ProductTypes).Include(f=>f.SpecialTag).ToList());
         }
         //httppost Index method
-
-        //[HttpPost]
-        //public IActionResult Index(decimal lowAmount, decimal largeAmount)
-        //{
-        //    var product = _db.Products.Include()
-        //    return View();
-        //}
+        [HttpPost]
+        public IActionResult Index(decimal? lowAmount, decimal? highAmount)
+        {
+            var products = _db.Products.Include(c => c.ProductTypes).Include(c => c.SpecialTag)
+                .Where(c => c.Price >= lowAmount && c.Price <= highAmount).ToList();
+            if(lowAmount==null || highAmount==null)
+            {
+                 products = _db.Products.Include(c => c.ProductTypes).Include(c => c.SpecialTag)
+                .ToList();
+            }
+            return View(products);
+        }
 
         //httpget Create method
         public IActionResult Create()
