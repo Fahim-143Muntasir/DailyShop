@@ -43,5 +43,19 @@ namespace DailyShop.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        //httpget product details method
+        public ActionResult Details(int? id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var product = _db.Products.Include(c => c.ProductTypes).FirstOrDefault(c => c.Id == id);
+            if(product==null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
     }
 }
