@@ -1,5 +1,6 @@
 ﻿using DailyShop.Data;
 using DailyShop.Models;
+using DailyShop.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -55,6 +56,32 @@ namespace DailyShop.Controllers
             {
                 return NotFound();
             }
+            return View(product);
+        }
+
+        //httppoot product details method
+        [HttpPost]
+        [ActionName("Details")]
+        public ActionResult ProductDetails(int? id)
+        {
+            List<Products> products = new List<Products>();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = _db.Products.Include(c => c.ProductTypes).FirstOrDefault(c => c.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            products = HttpContext.Session.Get<List<Products>>("products");
+            if(products==null)
+            {
+                products = new List<Products>();
+            }
+            products.Add(product);
+            HttpContext.Session.Set("products", products);
             return View(product);
         }
     }
