@@ -86,6 +86,22 @@ namespace DailyShop.Controllers
             
             return RedirectToAction(nameof(Index));
         }
+        //httpget for Remove method 
+        [ActionName("Remove")]
+        public IActionResult RemoveFromCart(int? id)
+        {
+            List<Products> products = HttpContext.Session.Get<List<Products>>("products");
+            if (products != null)
+            {
+                var product = products.FirstOrDefault(c => c.Id == id);
+                if (product != null)
+                {
+                    products.Remove(product);
+                    HttpContext.Session.Set("products", products);
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
         //httppost for Remove method
         [HttpPost]
         public IActionResult Remove(int? id)
@@ -101,6 +117,17 @@ namespace DailyShop.Controllers
                 }
             }
             return RedirectToAction(nameof(Index));
+        }
+        //httpget for Cart method
+        public IActionResult Cart()
+        {
+            List<Products> products = HttpContext.Session.Get<List<Products>>("products");
+            if (products==null)
+            {
+                products = new List<Products>();
+            }
+
+            return View(products);
         }
     }
 }
