@@ -71,12 +71,10 @@
                         if (item.IsAvailable) { v = "YES"; }
                         <td>@v.ToString()</td>
                     }
-                    @{
-                        if (item.ProductTypes != null)
-                        {
-                            <td>@item.ProductTypes.ProductType</td>
-                        }
-                    }
+
+                    <td>@item.ProductTypes.ProductType</td>
+
+
                     <td>@item.SpecialTag.TagList.ToString()</td>
 
 

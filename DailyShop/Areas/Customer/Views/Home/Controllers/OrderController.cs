@@ -39,13 +39,14 @@ namespace DailyShop.Areas.Customer.Views.Home.Controllers
                 {
                     OrderDetails orderDetails = new OrderDetails();
                     orderDetails.ProductId = product.Id;
+                    anOrder.OrderDetails = new List<OrderDetails>();
                     anOrder.OrderDetails.Add(orderDetails);
                 }
             }
             anOrder.OrderNum = GetOrderNum();
             _db.Orders.Add(anOrder);
             await _db.SaveChangesAsync();
-            HttpContext.Session.Set("products", null);
+            HttpContext.Session.Set("products", new List<Products>());
             return View();
         }
 
