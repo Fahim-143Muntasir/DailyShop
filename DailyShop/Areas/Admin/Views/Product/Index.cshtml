@@ -51,7 +51,7 @@
                     @Html.DisplayNameFor(model => model.ProductTypeId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SpecialTagId)
+                    @Html.DisplayNameFor(model => model.SpecialTag)
                 </th>
                 <th></th>
                 <th>Actions</th>
@@ -61,25 +61,30 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.Price</td>
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
 
-                <td>@item.ProductColor</td>
-                @{
+                    <td>@item.ProductColor</td>
+                    @{
                         var v = "NO";
                         if (item.IsAvailable) { v = "YES"; }
-                    <td>@v.ToString()</td>
-                }
+                        <td>@v.ToString()</td>
+                    }
+                    @{
+                        if (item.ProductTypes != null)
+                        {
+                            <td>@item.ProductTypes.ProductType</td>
+                        }
+                    }
+                    <td>@item.SpecialTag.TagList.ToString()</td>
 
-                <td>@item.ProductTypes.ProductType</td>
-                <td>@item.SpecialTag.TagList</td>
 
-                <td>
-                    <partial name="_ButtonPartial" model="@item.Id" />
-                </td>
+                    <td>
+                        <partial name="_ButtonPartial" model="@item.Id" />
+                    </td>
 
-            </tr>
+                </tr>
             }
         </tbody>
     </table>

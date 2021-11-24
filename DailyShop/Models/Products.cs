@@ -22,11 +22,13 @@ namespace DailyShop.Models
         public bool IsAvailable { get; set; }
         [Display(Name = "Product Type")]
         [Required]
+        
         public int ProductTypeId { get; set; }
         [ForeignKey("ProductTypeId")]
         public virtual ProductTypes ProductTypes { get; set; }
         [Display(Name = "Special Tag")]
         [Required]
+        
         public int SpecialTagId { get; set; }
         [ForeignKey("SpecialTagId")]
         public virtual TagLists SpecialTag { get; set; }

@@ -27,7 +27,7 @@ namespace DailyShop.Areas.Admin.Controllers
         //httpget Index method
         public IActionResult Index()
         {
-            return View(_db.Products.Include(c => c.ProductTypes).Include(f=>f.SpecialTag).ToList());
+            return View(_db.Products.Include(c => c.ProductTypes).Include(c=>c.SpecialTag).ToList());
         }
         //httppost Index method
         [HttpPost]
@@ -138,7 +138,7 @@ namespace DailyShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var product = _db.Products.Include(c => c.ProductTypes).Include(c => c.SpecialTag)
+            var product = _db.Products.Include(c => c.ProductTypes).Include(d => d.SpecialTag)
                 .FirstOrDefault(c => c.Id == id);
             if (product == null)
             {

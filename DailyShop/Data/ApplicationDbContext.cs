@@ -16,5 +16,7 @@ namespace DailyShop.Data
         public DbSet<ProductTypes> ProductTypes { get; set; }
         public DbSet<TagLists> TagLists { get; set; }
         public DbSet<Products> Products { get; set; }
+        public DbSet<Order> Orders  { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
     }
 }
