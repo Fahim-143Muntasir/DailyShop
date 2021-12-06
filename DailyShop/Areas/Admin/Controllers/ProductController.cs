@@ -76,7 +76,7 @@ namespace DailyShop.Areas.Admin.Controllers
                 }
                 _db.Products.Add(product);
                 await _db.SaveChangesAsync();
-                TempData["save"] = product.Name + " added successfully 😇";
+                TempData["save"] = product.Name + " added successfully ✔";
                 return RedirectToAction(nameof(Index));
             }
             return View(product);

@@ -34,7 +34,7 @@ namespace DailyShop
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
@@ -73,7 +73,9 @@ namespace DailyShop
             {
                 endpoints.MapControllerRoute(
                   name: "areas",
-                  pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}"
+                  pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}",
+                  endpoints.MapRazorPages()
+
                 );
             });
         }
