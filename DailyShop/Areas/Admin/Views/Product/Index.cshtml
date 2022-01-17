@@ -31,7 +31,7 @@
 </form>
 <br />
 <div>
-    <table id="myTable" class="table table-border  text-center">
+    <table id="myTable" class="table table-striped border text-center table-sm">
         <thead>
             <tr class="table-info">
                 <th>
@@ -55,7 +55,6 @@
                 </th>
                 <th></th>
                 <th>Actions</th>
-
             </tr>
         </thead>
         <tbody>
@@ -63,19 +62,18 @@
             {
                 <tr>
                     <td>@item.Name</td>
-                    <td>@item.Price</td>               
+                    <td>@item.Price</td>
                     <td>@item.ProductColor</td>
                     @{
                         var v = "NO";
                         if (item.IsAvailable) { v = "YES"; }
                         <td>@v.ToString()</td>
                     }
-
+                    
                     <td>@item.ProductTypes.ProductType</td>
-
+                    
 
                     <td>@item.SpecialTag.TagList.ToString()</td>
-
 
                     <td>
                         <partial name="_ButtonPartial" model="@item.Id" />

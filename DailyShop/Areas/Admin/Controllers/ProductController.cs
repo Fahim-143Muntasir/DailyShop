@@ -18,7 +18,7 @@ namespace DailyShop.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private ApplicationDbContext _db;
-        private IHostingEnvironment _he;
+        private  IHostingEnvironment _he;
         public ProductController(ApplicationDbContext db, IHostingEnvironment he)
         {
             _db = db;
